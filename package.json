@@ -7,11 +7,11 @@
     "start": "bsb -make-world -w"
   },
   "keywords": [
-    "BuckleScript"
+    "rescript"
   ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "^8.2.0"
+    "bs-platform": "*"
   }
 }
