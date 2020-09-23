@@ -41,13 +41,14 @@ let run = (loc, left, comparator, right) => {
     let left = Js.String.make(left);
     let right = Js.String.make(right);
     let codeFrame = codeFrameColumns(fileContent, {"start": {"line": line}}, {"highlightCode": true})
-    let errorMessage =
-{j|  \u001b[31mTest Failure: \u001b[39m$file
+    let errorMessage = {j|
+  \u001b[31mTest Failure!
+  \u001b[36m$file\u001b[0m:\u001b[2m$line
 
 $codeFrame
 
-  \u001b[31mLeft:\u001b[39m $left
-  \u001b[31mRight:\u001b[39m $right
+  \u001b[39mLeft: \u001b[31m$left
+  \u001b[39mRight: \u001b[31m$right\u001b[0m
 |j};
     Js.log(errorMessage);
     // API: https://nodejs.org/api/errors.html#errors_error_capturestacktrace_targetobject_constructoropt
