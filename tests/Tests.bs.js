@@ -10,6 +10,25 @@ var dirname = typeof __dirname === "undefined" ? undefined : __dirname;
 
 var dirname$1 = dirname !== undefined ? dirname : "";
 
+function cleanUpStackTrace(stack) {
+  var removeInternalLines = function (lines, _i) {
+    while(true) {
+      var i = _i;
+      if (i >= lines.length) {
+        return lines;
+      }
+      if (lines[i].indexOf(" (internal/") >= 0) {
+        return lines.slice(0, i);
+      }
+      _i = i + 1 | 0;
+      continue ;
+    };
+  };
+  return removeInternalLines(stack.split("\n").slice(2), 0).map(function (line) {
+                return line.slice(2);
+              }).join("\n");
+}
+
 function run(loc, left, comparator, right) {
   if (Curry._2(comparator, left, right)) {
     return ;
@@ -19,22 +38,25 @@ function run(loc, left, comparator, right) {
   var fileContent = Fs.readFileSync(Path.join(dirname$1, file), {
         encoding: "utf-8"
       });
-  console.error("\u001b[31mTest Failure:\u001b[39m " + file);
-  console.error(CodeFrame.codeFrameColumns(fileContent, {
-            start: {
-              line: match[1]
-            }
-          }, {
-            highlightCode: true
-          }));
-  console.error("\u001b[31mLeft:\u001b[39m");
-  console.error(left);
-  console.error("\u001b[31mRight:\u001b[39m");
-  console.error(right);
+  var left$1 = String(left);
+  var right$1 = String(right);
+  var codeFrame = CodeFrame.codeFrameColumns(fileContent, {
+        start: {
+          line: match[1]
+        }
+      }, {
+        highlightCode: true
+      });
+  var errorMessage = "  \u001b[31mTest Failure: \u001b[39m" + file + "\n\n" + codeFrame + "\n\n  \u001b[31mLeft:\u001b[39m " + left$1 + "\n  \u001b[31mRight:\u001b[39m " + right$1 + "\n";
+  console.log(errorMessage);
+  var obj = {};
+  Error.captureStackTrace(obj);
+  console.log(cleanUpStackTrace(obj.stack));
   process.exit(1);
   
 }
 
 exports.dirname = dirname$1;
+exports.cleanUpStackTrace = cleanUpStackTrace;
 exports.run = run;
 /* dirname Not a pure module */
