@@ -34,6 +34,7 @@ function run(loc, left, comparator, right) {
     return ;
   }
   var match = loc[0];
+  var line = match[1];
   var file = match[0];
   var fileContent = Fs.readFileSync(Path.join(dirname$1, file), {
         encoding: "utf-8"
@@ -42,12 +43,12 @@ function run(loc, left, comparator, right) {
   var right$1 = String(right);
   var codeFrame = CodeFrame.codeFrameColumns(fileContent, {
         start: {
-          line: match[1]
+          line: line
         }
       }, {
         highlightCode: true
       });
-  var errorMessage = "  \u001b[31mTest Failure: \u001b[39m" + file + "\n\n" + codeFrame + "\n\n  \u001b[31mLeft:\u001b[39m " + left$1 + "\n  \u001b[31mRight:\u001b[39m " + right$1 + "\n";
+  var errorMessage = "\n  \u001b[31mTest Failure!\n  \u001b[36m" + file + "\u001b[0m:\u001b[2m" + line + "\n\n" + codeFrame + "\n\n  \u001b[39mLeft: \u001b[31m" + left$1 + "\n  \u001b[39mRight: \u001b[31m" + right$1 + "\u001b[0m\n";
   console.log(errorMessage);
   var obj = {};
   Error.captureStackTrace(obj);
