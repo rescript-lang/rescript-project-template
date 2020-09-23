@@ -4,7 +4,8 @@
   "scripts": {
     "build": "bsb -make-world",
     "clean": "bsb -clean-world",
-    "start": "bsb -make-world -w"
+    "start": "bsb -make-world -w",
+    "test": "node tests/TestAll.bs.js"
   },
   "keywords": [
     "rescript"
@@ -12,6 +13,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@babel/code-frame": "^7.10.4",
     "bs-platform": "*"
   }
 }

@@ -2,6 +2,9 @@
 'use strict';
 
 
-console.log("Hello, World!");
+function add(a, b) {
+  return a + b | 0;
+}
 
-/*  Not a pure module */
+exports.add = add;
+/* No side effect */
