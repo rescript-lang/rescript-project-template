@@ -21,7 +21,7 @@ function randomTests(loc) {
 
 Tests.run([
       [
-        "DemoTest.re",
+        "DemoTest.res",
         15,
         13,
         43
@@ -31,7 +31,7 @@ Tests.run([
 
 randomTests([
       [
-        "DemoTest.re",
+        "DemoTest.res",
         20,
         23,
         62

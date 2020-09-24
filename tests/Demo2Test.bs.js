@@ -9,7 +9,7 @@ var equals = Caml_obj.caml_equal;
 
 Tests.run([
       [
-        "Demo2Test.re",
+        "Demo2Test.res",
         7,
         13,
         24
