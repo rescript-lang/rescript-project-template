@@ -1,4 +1,6 @@
-# My New Project
+# ReScript Project Template
+
+The only official ReScript starter template.
 
 ## Installation
 
