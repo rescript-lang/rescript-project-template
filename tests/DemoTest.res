@@ -11,10 +11,13 @@ let randomTests = (loc) => {
   })
 }
 
-Tests.run(
-  __POS_OF__("Adding 2 numbers should work"),
-  Demo.add(1, 2), equals, 3
-)
+// called by TestEverything.res
+let run = () => {
+  Tests.run(
+    __POS_OF__("Adding 2 numbers should work"),
+    Demo.add(1, 2), equals, 3
+  )
 
-// example of using a helper and passing the right location
-randomTests(__POS_OF__("Adding random numbers should work too"))
+  // example of using a helper and passing the right location
+  randomTests(__POS_OF__("Adding random numbers should work too"))
+}

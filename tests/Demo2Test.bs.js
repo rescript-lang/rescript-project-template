@@ -7,15 +7,18 @@ var Caml_obj = require("bs-platform/lib/js/caml_obj.js");
 
 var equals = Caml_obj.caml_equal;
 
-Tests.run([
-      [
-        "Demo2Test.res",
-        7,
-        13,
-        24
-      ],
-      "1 + 3 = 2"
-    ], Demo.add(1, 3), equals, 2);
+function run(param) {
+  return Tests.run([
+              [
+                "Demo2Test.res",
+                9,
+                15,
+                26
+              ],
+              "1 + 3 = 2"
+            ], Demo.add(1, 3), equals, 2);
+}
 
 exports.equals = equals;
-/*  Not a pure module */
+exports.run = run;
+/* Tests Not a pure module */

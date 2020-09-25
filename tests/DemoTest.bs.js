@@ -19,26 +19,28 @@ function randomTests(loc) {
   
 }
 
-Tests.run([
-      [
-        "DemoTest.res",
-        15,
-        13,
-        43
-      ],
-      "Adding 2 numbers should work"
-    ], Demo.add(1, 2), equals, 3);
-
-randomTests([
-      [
-        "DemoTest.res",
-        20,
-        23,
-        62
-      ],
-      "Adding random numbers should work too"
-    ]);
+function run(param) {
+  Tests.run([
+        [
+          "DemoTest.res",
+          17,
+          15,
+          45
+        ],
+        "Adding 2 numbers should work"
+      ], Demo.add(1, 2), equals, 3);
+  return randomTests([
+              [
+                "DemoTest.res",
+                22,
+                25,
+                64
+              ],
+              "Adding random numbers should work too"
+            ]);
+}
 
 exports.equals = equals;
 exports.randomTests = randomTests;
-/*  Not a pure module */
+exports.run = run;
+/* Tests Not a pure module */

@@ -5,7 +5,7 @@
     "build": "bsb -make-world",
     "clean": "bsb -clean-world",
     "start": "bsb -make-world -w",
-    "test": "node tests/*Test.bs.js"
+    "test": "node tests/TestEverything.bs.js"
   },
   "keywords": [
     "rescript"
