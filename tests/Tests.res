@@ -38,8 +38,8 @@ let run = (loc, left, comparator, right) => {
   if (!comparator(left, right)) {
     let ((file, line, _, _), _ ) = loc
     let fileContent = readFileSync(join(dirname, file), {"encoding": "utf-8"})
-    let left = Js.String.make(left)
-    let right = Js.String.make(right)
+    let left = Js.Json.stringifyAny(left)
+    let right = Js.Json.stringifyAny(right)
     let codeFrame = codeFrameColumns(fileContent, {"start": {"line": line}}, {"highlightCode": true})
     let errorMessage = j`
   \u001b[31mTest Failure!
@@ -55,6 +55,5 @@ $codeFrame
     let obj = Js.Obj.empty()
     captureStackTrace(obj)
     Js.log(obj["stack"]->cleanUpStackTrace)
-    exit(1)
   }
 }

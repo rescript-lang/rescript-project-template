@@ -39,8 +39,8 @@ function run(loc, left, comparator, right) {
   var fileContent = Fs.readFileSync(Path.join(dirname$1, file), {
         encoding: "utf-8"
       });
-  var left$1 = String(left);
-  var right$1 = String(right);
+  var left$1 = JSON.stringify(left);
+  var right$1 = JSON.stringify(right);
   var codeFrame = CodeFrame.codeFrameColumns(fileContent, {
         start: {
           line: line
@@ -53,7 +53,6 @@ function run(loc, left, comparator, right) {
   var obj = {};
   Error.captureStackTrace(obj);
   console.log(cleanUpStackTrace(obj.stack));
-  process.exit(1);
   
 }
 
