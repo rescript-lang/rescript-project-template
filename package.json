@@ -1,6 +1,6 @@
 {
   "name": "rescript-project-template",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "build": "bsb -make-world",
     "clean": "bsb -clean-world",
