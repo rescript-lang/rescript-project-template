@@ -3,44 +3,40 @@
 
 var Demo = require("../src/Demo.bs.js");
 var Tests = require("./Tests.bs.js");
-var Caml_obj = require("bs-platform/lib/js/caml_obj.js");
 
-var equals = Caml_obj.caml_equal;
-
-function randomTests(loc) {
-  [
-      1,
-      5,
-      6,
-      9
-    ].forEach(function (num) {
-        return Tests.run(loc, Demo.add(num, num), equals, (num << 1));
-      });
-  
+function equals(a, b) {
+  return a === b;
 }
 
 function run(param) {
   Tests.run([
         [
           "DemoTest.res",
-          17,
-          15,
-          45
+          7,
+          23,
+          53
         ],
         "Adding 2 numbers should work"
       ], Demo.add(1, 2), equals, 3);
-  return randomTests([
-              [
-                "DemoTest.res",
-                22,
-                25,
-                64
-              ],
-              "Adding random numbers should work too"
-            ]);
+  [
+      1,
+      5,
+      6,
+      9
+    ].forEach(function (num) {
+        return Tests.run([
+                    [
+                      "DemoTest.res",
+                      10,
+                      25,
+                      64
+                    ],
+                    "Adding random numbers should work too"
+                  ], Demo.add(num, num), equals, Math.imul(num, 22));
+      });
+  
 }
 
 exports.equals = equals;
-exports.randomTests = randomTests;
 exports.run = run;
 /* Tests Not a pure module */

@@ -17,7 +17,7 @@ function cleanUpStackTrace(stack) {
       if (i >= lines.length) {
         return lines;
       }
-      if (lines[i].indexOf(" (internal/") >= 0) {
+      if (lines[i].indexOf(" (node:") >= 0) {
         return lines.slice(0, i);
       }
       _i = i + 1 | 0;

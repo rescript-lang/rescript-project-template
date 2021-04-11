@@ -2,10 +2,10 @@
 'use strict';
 
 var DemoTest = require("./DemoTest.bs.js");
-var Demo2Test = require("./Demo2Test.bs.js");
+var RandomTest = require("./RandomTest.bs.js");
 
 DemoTest.run(undefined);
 
-Demo2Test.run(undefined);
+RandomTest.run(undefined);
 
 /*  Not a pure module */
