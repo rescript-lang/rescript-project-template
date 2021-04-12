@@ -1,5 +1,4 @@
 {
-  "$schema": "https://raw.githubusercontent.com/rescript-lang/rescript-compiler/master/docs/docson/build-schema.json",
   "name": "rescript-project-template",
   "version": "0.0.1",
   "sources": {
