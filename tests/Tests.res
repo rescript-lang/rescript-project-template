@@ -64,3 +64,46 @@ $codeFrame
     Js.log(obj["stack"]->cleanUpStackTrace)
   }
 }
+
+let getFileAndLineFromStack = stack => {
+  let a =
+    stack
+    ->Js.String2.split("\n")
+    // first line is "Error ...". Second line is this frame's stack trace. Ignore the 2
+    ->Js.Array2.sliceFrom(2)
+  let line = Js.Array2.unsafe_get(a, 0)
+  let m = line->Js.String2.match_(%re(`/    at .+? \((.+)\:(\d+)\:\d+\)/`))
+  switch m {
+  | Some([_, file, line]) => (file, line)
+  | _ => // raise (Invalid_argument("can't extract file"))
+    ("hi", "10")
+  }
+}
+
+let run2 = (_desc, left, comparator, right) => {
+  if !comparator(left, right) {
+    let obj = Js.Obj.empty()
+    captureStackTrace(obj)
+    let (file, line) = getFileAndLineFromStack(obj["stack"])
+    let fileContent = readFileSync(file, {"encoding": "utf-8"})
+    let left = Js.Json.stringifyAny(left)
+    let right = Js.Json.stringifyAny(right)
+    let codeFrame = codeFrameColumns(
+      fileContent,
+      {"start": {"line": line}},
+      {"highlightCode": true},
+    )
+    let errorMessage = j`
+  \u001b[31mTest Failure!
+  \u001b[36m$file\u001b[0m:\u001b[2m$line
+
+$codeFrame
+
+  \u001b[39mLeft: \u001b[31m$left
+  \u001b[39mRight: \u001b[31m$right\u001b[0m
+`
+    Js.log(errorMessage)
+    // API: https://nodejs.org/api/errors.html#errors_error_capturestacktrace_targetobject_constructoropt
+    Js.log(obj["stack"]->cleanUpStackTrace)
+  }
+}

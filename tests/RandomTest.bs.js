@@ -8,15 +8,7 @@ function almostEquals(a, b) {
 }
 
 function run(param) {
-  return Tests.run([
-              [
-                "RandomTest.res",
-                9,
-                15,
-                37
-              ],
-              "Testing almostEquals"
-            ], 1.5 + 3.4, almostEquals, 4);
+  return Tests.run2("Testing almostEquals", 1.5 + 3.4, almostEquals, 4);
 }
 
 exports.almostEquals = almostEquals;

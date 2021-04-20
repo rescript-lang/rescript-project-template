@@ -4,9 +4,5 @@ let almostEquals = (a, b) => {
 
 // called by TestEverything.res
 let run = () => {
-  // a failing test
-  Tests.run(
-    __POS_OF__("Testing almostEquals"),
-    1.5 +. 3.4, almostEquals, 4.
-  )
+  Tests.run2("Testing almostEquals", 1.5 +. 3.4, almostEquals, 4.)
 }

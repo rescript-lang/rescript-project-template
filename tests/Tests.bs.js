@@ -56,7 +56,60 @@ function run(loc, left, comparator, right) {
   
 }
 
+function getFileAndLineFromStack(stack) {
+  var a = stack.split("\n").slice(2);
+  var line = a[0];
+  var m = line.match(/    at .+? \((.+)\:(\d+)\:\d+\)/);
+  if (m === null) {
+    return [
+            "hi",
+            "10"
+          ];
+  }
+  if (m.length !== 3) {
+    return [
+            "hi",
+            "10"
+          ];
+  }
+  var file = m[1];
+  var line$1 = m[2];
+  return [
+          file,
+          line$1
+        ];
+}
+
+function run2(_desc, left, comparator, right) {
+  if (Curry._2(comparator, left, right)) {
+    return ;
+  }
+  var obj = {};
+  Error.captureStackTrace(obj);
+  var match = getFileAndLineFromStack(obj.stack);
+  var line = match[1];
+  var file = match[0];
+  var fileContent = Fs.readFileSync(file, {
+        encoding: "utf-8"
+      });
+  var left$1 = JSON.stringify(left);
+  var right$1 = JSON.stringify(right);
+  var codeFrame = CodeFrame.codeFrameColumns(fileContent, {
+        start: {
+          line: line
+        }
+      }, {
+        highlightCode: true
+      });
+  var errorMessage = "\n  \u001b[31mTest Failure!\n  \u001b[36m" + file + "\u001b[0m:\u001b[2m" + line + "\n\n" + codeFrame + "\n\n  \u001b[39mLeft: \u001b[31m" + left$1 + "\n  \u001b[39mRight: \u001b[31m" + right$1 + "\u001b[0m\n";
+  console.log(errorMessage);
+  console.log(cleanUpStackTrace(obj.stack));
+  
+}
+
 exports.dirname = dirname$1;
 exports.cleanUpStackTrace = cleanUpStackTrace;
 exports.run = run;
+exports.getFileAndLineFromStack = getFileAndLineFromStack;
+exports.run2 = run2;
 /* dirname Not a pure module */

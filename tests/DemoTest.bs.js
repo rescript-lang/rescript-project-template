@@ -9,15 +9,6 @@ function equals(a, b) {
 }
 
 function run(param) {
-  Tests.run([
-        [
-          "DemoTest.res",
-          7,
-          23,
-          53
-        ],
-        "Adding 2 numbers should work"
-      ], Demo.add(1, 2), equals, 3);
   [
       1,
       5,
@@ -32,7 +23,7 @@ function run(param) {
                       64
                     ],
                     "Adding random numbers should work too"
-                  ], Demo.add(num, num), equals, Math.imul(num, 22));
+                  ], Demo.add(num, num), equals, (num << 1));
       });
   
 }
