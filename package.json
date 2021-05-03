@@ -11,7 +11,7 @@
   ],
   "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "bs-platform": "*"
+  "dependencies": {
+    "rescript": "*"
   }
 }
