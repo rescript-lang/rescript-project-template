@@ -18,6 +18,15 @@
   },
   "reason": {
     "react-jsx": 3
+  },
+  "gentypeconfig": {
+    "language": "typescript",
+    "shims": {},
+    "generatedFileExtension": ".gen.tsx",
+    "module": "es6",
+    "debug": {
+      "all": false,
+      "basic": false
+    }
   }
 }
-  

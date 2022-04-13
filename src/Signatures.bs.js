@@ -41,8 +41,13 @@ var f5_2 = fact_aux(5, 1);
 
 console.log(f5_1, f5_2);
 
+function x(param) {
+  return 1;
+}
+
 exports.RecursiveFact = RecursiveFact;
 exports.TailRecursiveFact = TailRecursiveFact;
 exports.f5_1 = f5_1;
 exports.f5_2 = f5_2;
+exports.x = x;
 /* f5_1 Not a pure module */
