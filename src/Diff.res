@@ -83,6 +83,6 @@ let rec string_of_expr = e => {
 }
 
 let x = Var("x")
-let f = Mul(Mul(Mul(Plus(Plus(Pow(x, 2), Mul(x, Const(3))), Const(5)), Const(4)), Const(3)), Const(3))
+let f = Mul(Mul(Mul(Plus(Plus(Pow(x, 3), Mul(x, Const(3))), Const(5)), Const(4)), Const(3)), Const(3))
 let d = Diff(f, "x")
 Js.log3(string_of_expr(d), "=", string_of_expr(collect(d)))
