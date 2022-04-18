@@ -3,15 +3,17 @@
 
 
 function simplify_plus(a, b) {
-  if (a.TAG === /* Const */0 && a._0 === 0) {
-    return b;
+  var match = collect(a);
+  var match$1 = collect(b);
+  if (match.TAG === /* Const */0 && match._0 === 0) {
+    return match$1;
   }
-  if (b.TAG === /* Const */0) {
-    if (b._0 !== 0) {
-      if (a.TAG === /* Const */0) {
+  if (match$1.TAG === /* Const */0) {
+    if (match$1._0 !== 0) {
+      if (match.TAG === /* Const */0) {
         return {
                 TAG: /* Const */0,
-                _0: a._0 + b._0 | 0
+                _0: match._0 + match$1._0 | 0
               };
       } else {
         return {
@@ -21,7 +23,7 @@ function simplify_plus(a, b) {
               };
       }
     } else {
-      return a;
+      return match;
     }
   } else {
     return {
@@ -33,11 +35,13 @@ function simplify_plus(a, b) {
 }
 
 function simplify_mul(a, b) {
+  var match = collect(a);
+  var match$1 = collect(b);
   var exit = 0;
   var exit$1 = 0;
-  switch (a.TAG | 0) {
+  switch (match.TAG | 0) {
     case /* Const */0 :
-        if (a._0 === 0) {
+        if (match._0 === 0) {
           return {
                   TAG: /* Const */0,
                   _0: 0
@@ -46,13 +50,13 @@ function simplify_mul(a, b) {
         exit$1 = 3;
         break;
     case /* Var */1 :
-        var x = a._0;
-        switch (b.TAG | 0) {
+        var x = match._0;
+        switch (match$1.TAG | 0) {
           case /* Const */0 :
               exit$1 = 3;
               break;
           case /* Mul */3 :
-              var c = b._0;
+              var c = match$1._0;
               if (c.TAG !== /* Const */0) {
                 return {
                         TAG: /* Mul */3,
@@ -60,7 +64,7 @@ function simplify_mul(a, b) {
                         _1: b
                       };
               }
-              var y = b._1;
+              var y = match$1._1;
               if (y.TAG === /* Var */1 && x === y._0) {
                 return {
                         TAG: /* Mul */3,
@@ -96,8 +100,8 @@ function simplify_mul(a, b) {
       exit$1 = 3;
   }
   if (exit$1 === 3) {
-    if (b.TAG === /* Const */0) {
-      if (b._0 === 0) {
+    if (match$1.TAG === /* Const */0) {
+      if (match$1._0 === 0) {
         return {
                 TAG: /* Const */0,
                 _0: 0
@@ -108,15 +112,15 @@ function simplify_mul(a, b) {
       exit = 2;
     }
   }
-  if (exit === 2 && a.TAG === /* Const */0 && a._0 === 1) {
-    return b;
+  if (exit === 2 && match.TAG === /* Const */0 && match._0 === 1) {
+    return match$1;
   }
-  if (b.TAG === /* Const */0) {
-    if (b._0 !== 1) {
-      if (a.TAG === /* Const */0) {
+  if (match$1.TAG === /* Const */0) {
+    if (match$1._0 !== 1) {
+      if (match.TAG === /* Const */0) {
         return {
                 TAG: /* Const */0,
-                _0: Math.imul(a._0, b._0)
+                _0: Math.imul(match._0, match$1._0)
               };
       } else {
         return {
@@ -126,7 +130,7 @@ function simplify_mul(a, b) {
               };
       }
     } else {
-      return a;
+      return match;
     }
   } else {
     return {
@@ -271,7 +275,7 @@ function collect(e) {
   var a = s._0;
   var match = s._1;
   if (match.TAG === /* Plus */2) {
-    return simplify_plus(simplify_mul(collect(a), collect(match._0)), simplify_mul(collect(a), collect(match._1)));
+    return simplify_plus(simplify_mul(a, match._0), simplify_mul(a, match._1));
   }
   switch (a.TAG | 0) {
     case /* Const */0 :
@@ -297,7 +301,7 @@ function collect(e) {
         }
     case /* Plus */2 :
         var c$1 = s._1;
-        return simplify_plus(simplify_mul(collect(a._0), collect(c$1)), simplify_mul(collect(a._1), collect(c$1)));
+        return simplify_plus(simplify_mul(a._0, c$1), simplify_mul(a._1, c$1));
     case /* Mul */3 :
         var a$2 = a._0;
         if (a$2.TAG === /* Const */0) {
@@ -370,7 +374,7 @@ var f_0 = {
           _0: x,
           _1: {
             TAG: /* Const */0,
-            _0: 3
+            _0: 77
           }
         }
       },

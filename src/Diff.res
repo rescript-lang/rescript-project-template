@@ -6,17 +6,16 @@ type rec expr =
   | Pow(expr, int)
   | Diff(expr, string)
 
-let simplify_plus = (a, b) => {
-  switch (a, b) {
+let rec simplify_plus = (a, b) => {
+  switch (collect(a), collect(b)) {
   | (Const(0), e) => e
   | (e, Const(0)) => e
   | (Const(x), Const(y)) => Const(x + y)
   | _ => Plus(a, b)
   }
 }
-
-let simplify_mul = (a, b) => {
-  switch (a, b) {
+and simplify_mul = (a, b) => {
+  switch (collect(a), collect(b)) {
   | (Const(0), _) => Const(0)
   | (_, Const(0)) => Const(0)
   | (Const(1), e) => e
@@ -26,16 +25,14 @@ let simplify_mul = (a, b) => {
   | _ => Mul(a, b)
   }
 }
-
-let simplify_pow = (e, n) => {
+and simplify_pow = (e, n) => {
   switch (e, n) {
   | (_, 0) => Const(1)
   | (e, 1) => e
   | _ => Pow(e, n)
   }
 }
-
-let rec simplify_diff = (e, x) => {
+and simplify_diff = (e, x) => {
   switch e {
   | Const(_) => Const(0)
   | Var(v) =>
@@ -61,14 +58,14 @@ and simplify = e => {
 }
 and collect = e => {
   let s = simplify(e)
-  switch (s) {
-    | Mul(a, Plus(b, c)) => simplify_plus(simplify_mul(collect(a), collect(b)), simplify_mul(collect(a), collect(c)))
-    | Mul(Plus(a, b), c) => simplify_plus(simplify_mul(collect(a), collect(c)), simplify_mul(collect(b), collect(c)))
-    | Mul(Const(a), Mul(b, Const(c))) => simplify_mul(Const(a*c), b)
-    | Mul(Const(a), Mul(Const(b), c)) => simplify_mul(Const(a*b), c)
-    | Mul(Mul(Const(a), b), Const(c)) => simplify_mul(Const(a*c), b)
-    | Mul(Mul(a, Const(b)), Const(c)) => simplify_mul(Const(b*c), a)
-    | _ => s
+  switch s {
+  | Mul(a, Plus(b, c)) => simplify_plus(simplify_mul(a, b), simplify_mul(a, c))
+  | Mul(Plus(a, b), c) => simplify_plus(simplify_mul(a, c), simplify_mul(b, c))
+  | Mul(Const(a), Mul(b, Const(c))) => simplify_mul(Const(a * c), b)
+  | Mul(Const(a), Mul(Const(b), c)) => simplify_mul(Const(a * b), c)
+  | Mul(Mul(Const(a), b), Const(c)) => simplify_mul(Const(a * c), b)
+  | Mul(Mul(a, Const(b)), Const(c)) => simplify_mul(Const(b * c), a)
+  | _ => s
   }
 }
 let rec string_of_expr = e => {
@@ -83,6 +80,6 @@ let rec string_of_expr = e => {
 }
 
 let x = Var("x")
-let f = Mul(Mul(Mul(Plus(Plus(Pow(x, 3), Mul(x, Const(3))), Const(5)), Const(4)), Const(3)), Const(3))
+let f = Mul(Mul(Mul(Plus(Plus(Pow(x, 3), Mul(x, Const(77))), Const(5)), Const(4)), Const(3)), Const(3))
 let d = Diff(f, "x")
 Js.log3(string_of_expr(d), "=", string_of_expr(collect(d)))
