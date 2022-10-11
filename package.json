@@ -2,9 +2,9 @@
   "name": "rescript-project-template",
   "version": "0.0.1",
   "scripts": {
-    "build": "rescript",
-    "clean": "rescript clean -with-deps",
-    "start": "rescript build -w"
+    "res:build": "rescript",
+    "res:clean": "rescript clean -with-deps",
+    "res:start": "rescript build -w"
   },
   "keywords": [
     "rescript"
