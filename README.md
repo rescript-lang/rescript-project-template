@@ -12,7 +12,7 @@ npm install
 
 - Build: `npm run res:build`
 - Clean: `npm run res:clean`
-- Build & watch: `npm run res:start`
+- Build & watch: `npm run res:dev`
 
 ## Run
 
