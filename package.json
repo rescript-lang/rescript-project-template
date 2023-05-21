@@ -1,17 +1,18 @@
 {
   "name": "rescript-project-template",
   "version": "0.0.1",
+  "keywords": [
+    "rescript"
+  ],
+  "license": "MIT",
+  "author": "",
   "scripts": {
     "res:build": "rescript",
     "res:clean": "rescript clean",
     "res:dev": "rescript build -w"
   },
-  "keywords": [
-    "rescript"
-  ],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
+    "@rescript/core": "*",
     "rescript": "*"
   }
 }
