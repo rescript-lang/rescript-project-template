@@ -1,6 +1,6 @@
 ## ⚠️ Deprecated
 
-This template is no longer maintained. Please use [create-rescript-app]([https://github.com/username/new-project](https://github.com/rescript-lang/create-rescript-app)) instead. 
+This template is no longer maintained. Please use [create-rescript-app](https://github.com/rescript-lang/create-rescript-app) instead. 
 
 # ReScript Project Template
 
